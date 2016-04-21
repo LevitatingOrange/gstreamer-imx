@@ -111,6 +111,7 @@ typedef struct _GstImxPxPBlitterPrivate GstImxPxPBlitterPrivate;
 	" , YUY2 " \
 	" , UYVY " \
 	" , YVYU " \
+	" , AYUV " \
 	" } "
 
 #define GST_IMX_PXP_BLITTER_SINK_CAPS \

@@ -490,6 +490,7 @@ static GstImxPxPFormatDetails const * gst_imx_pxp_blitter_get_format_details(Gst
 		case GST_VIDEO_FORMAT_YUY2: FORMAT_DETAILS(PXP_PIX_FMT_YUYV, 16);
 		case GST_VIDEO_FORMAT_UYVY: FORMAT_DETAILS(PXP_PIX_FMT_UYVY, 16);
 		case GST_VIDEO_FORMAT_YVYU: FORMAT_DETAILS(PXP_PIX_FMT_YVYU, 16);
+		case GST_VIDEO_FORMAT_AYUV: FORMAT_DETAILS(PXP_PIX_FMT_VUY444, 32);
 
 		/* planar formats; bits per pixel is always 8 for these */
 		case GST_VIDEO_FORMAT_I420: FORMAT_DETAILS(PXP_PIX_FMT_YUV420P, 8);
