@@ -402,7 +402,7 @@ static gboolean gst_imx_vpu_decoder_set_format(GstVideoDecoder *decoder, GstVide
 
 			format = gst_video_format_from_string(format_str);
 			g_assert(format != GST_VIDEO_FORMAT_UNKNOWN);
-
+			//format = GST_VIDEO_FORMAT_Y444;
 			switch (format)
 			{
 				case GST_VIDEO_FORMAT_I420:

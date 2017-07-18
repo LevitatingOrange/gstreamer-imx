@@ -95,7 +95,7 @@ GST_DEBUG_CATEGORY_STATIC(gst_imx_v4l2src_debug_category);
 
 #define DEBUG_INIT \
 	GST_DEBUG_CATEGORY_INIT(gst_imx_v4l2src_debug_category, \
-			"imxv4l2videosrc", 0, "V4L2 CSI video source");
+			"imxv4l2videosrc", 0, "V4L2 CSI video source (modified)");
 
 static void gst_imx_v4l2src_uri_handler_init(gpointer g_iface,
 	gpointer iface_data);
@@ -227,8 +227,8 @@ static gint gst_imx_v4l2src_capture_setup(GstImxV4l2VideoSrc *v4l2src)
 	input = v4l2src->input;
 	if (ioctl(fd_v4l, VIDIOC_S_INPUT, &input) < 0)
 	{
-		GST_ERROR_OBJECT(v4l2src, "VIDIOC_S_INPUT failed: %s", strerror(errno));
-		goto fail;
+		//GST_ERROR_OBJECT(v4l2src, "VIDIOC_S_INPUT failed: %s", strerror(errno));
+		//goto fail;
 	}
 
 	parm.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
@@ -259,8 +259,8 @@ static gint gst_imx_v4l2src_capture_setup(GstImxV4l2VideoSrc *v4l2src)
 	fmt.fmt.pix.height = v4l2src->capture_height;
 	if (ioctl(fd_v4l, VIDIOC_S_FMT, &fmt) < 0)
 	{
-		GST_ERROR_OBJECT(v4l2src, "VIDIOC_S_FMT failed: %s", strerror(errno));
-		goto fail;
+		//GST_WARN_OBJECT(v4l2src, "VIDIOC_S_FMT failed: %s", strerror(errno));
+		//goto fail;
 	}
 
 	return fd_v4l;
@@ -276,6 +276,7 @@ static gboolean gst_imx_v4l2src_start(GstBaseSrc *src)
 	struct v4l2_format fmt;
 	int fd_v4l;
 
+        fmt.fmt.pix.pixelformat = v4l2_fourcc('Y','U','V','4');
 	GST_LOG_OBJECT(v4l2src, "start");
 
 	fd_v4l = gst_imx_v4l2src_capture_setup(v4l2src);
@@ -436,7 +437,8 @@ static GstCaps *gst_imx_v4l2src_caps_for_current_setup(GstImxV4l2VideoSrc *v4l2s
 			break;
 		default:
 			gst_fmt = gst_video_format_from_fourcc(fmt.fmt.pix.pixelformat);
-			pixel_format = gst_video_format_to_string(gst_fmt);
+			pixel_format = "AYUV";
+//			pixel_format = gst_video_format_to_string(gst_fmt);
 	}
 
 	if (v4l2src->is_tvin && !fmt.fmt.pix.field)
